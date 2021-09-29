@@ -1,57 +1,44 @@
-	#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gjeronim <gjeronim@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/29 15:53:08 by gjeronim          #+#    #+#             */
+/*   Updated: 2021/09/29 15:53:12 by gjeronim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	ft_strlen(char const *string)
+#include "get_next_line.h"
+
+int	ft_strlen(const char *str)
 {
-	int	counter;
+	int	i;
 
-	counter = 0;
-	while (string[counter] != 0)
+	i = 0;
+	while (str[i])
 	{
-		counter++;
+		i++;
 	}
-	return (counter);
+	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *str, int c)
 {
 	int	counter;
 
 	counter = 0;
-	while (counter <= ft_strlen(s))
+	while (str[counter])
 	{
-		if (*(s + counter) == (char)c)
-			return ((char *)s + counter);
+		if (str[counter] == c)
+			return ((char *)str + counter);
 		counter++;
 	}
+	if (c == '\0' && *(str + counter) == '\0')
+		return ((char *)str);
 	return (NULL);
 }
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	char	*navigable_dst;
-	char	*navigable_src;
-	size_t	counter;
-
-	navigable_dst = (char *) dst;
-	navigable_src = (char *) src;
-	counter = 0;
-	if (dstsize <= 0)
-	{
-		return (ft_strlen((char *)src));
-	}
-	while (navigable_src[counter] != 0 && counter < dstsize - 1)
-	{
-		navigable_dst[counter] = navigable_src[counter];
-		counter++;
-	}
-	navigable_dst[counter] = '\0';
-	while (navigable_src[counter] != '\0')
-	{
-		counter++;
-	}
-	return (counter);
-}
-
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -81,6 +68,32 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (dest);
 }
 
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	char	*navigable_dst;
+	char	*navigable_src;
+	size_t	counter;
+
+	navigable_dst = (char *) dst;
+	navigable_src = (char *) src;
+	counter = 0;
+	if (dstsize <= 0)
+	{
+		return (ft_strlen((char *)src));
+	}
+	while (navigable_src[counter] != 0 && counter < dstsize - 1)
+	{
+		navigable_dst[counter] = navigable_src[counter];
+		counter++;
+	}
+	navigable_dst[counter] = '\0';
+	while (navigable_src[counter] != '\0')
+	{
+		counter++;
+	}
+	return (counter);
+}
+
 char	*ft_strdup(const char *str)
 {
 	size_t	size;
@@ -93,5 +106,3 @@ char	*ft_strdup(const char *str)
 	ft_strlcpy(pointer, str, size);
 	return (pointer);
 }
-
-
